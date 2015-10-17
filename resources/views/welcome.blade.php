@@ -38,7 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Bà Hàng Xóm :3</div>
+                <img src="{{ asset('images/bg.jpg') }}" alt="Bà Hàng Xóm" title="Bà Hàng Xóm"/>
             </div>
         </div>
     </body>

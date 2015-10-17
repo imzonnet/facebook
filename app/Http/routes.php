@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 
 Route::get('/facebook', 'FacebookController@index');
-Route::get('/facebook-post', 'FacebookController@getPost');
+Route::get('/fb/group', ['as' => 'fb.group', 'uses' => 'FacebookController@pushGroups']);
+Route::post('/fb/group', ['as' => 'fb.group', 'uses' => 'FacebookController@postGroups']);
