@@ -11,7 +11,7 @@
                 <div class="alert alert-success">
                     Succcess: <strong>{{ $status['success']['count'] }}</strong> group
                 </div>
-                <div class="alert alert-error">
+                <div class="alert alert-danger">
                     Error:  <strong>{{ $status['error']['count'] }}</strong> groups
                 </div>
             </div>

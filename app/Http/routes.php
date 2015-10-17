@@ -20,3 +20,6 @@ Route::get('/facebook', 'FacebookController@index');
 Route::get('/fb/token', ['as' => 'fb.token', 'uses' => 'FacebookController@checkToken']);
 Route::get('/fb/group', ['as' => 'fb.group', 'uses' => 'FacebookController@pushGroups']);
 Route::post('/fb/group', ['as' => 'fb.group', 'uses' => 'FacebookController@postGroups']);
+
+
+Route::post('/fb/test', ['as' => 'fb.test', 'uses' => 'FacebookController@test']);
