@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="vnzacky39@gmail.com">
     <title>@yield('title', 'Facebook')</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
     <!-- Latest compiled and minified JavaScript -->
     <style>
@@ -33,7 +32,7 @@
             text-align: center;
         }
     </style>
-
+    @yield('styles')
 </head>
 <body>
     <div class="wrapper">
@@ -74,6 +73,8 @@
     </div><!-- zacky -->
 
     <div class="copyright text-center ">&copy; 2015 - Copyright By [VN]Zacky </div>
-
+    <script src={{ asset('assets/js/jquery.min.js') }}></script>
+    <script src={{ asset('assets/js/bootstrap.min.js') }}></script>
+    @yield('scripts')
 </body>
 </html>

@@ -71,6 +71,12 @@ class FacebookController extends Controller
     }
 
     /**
+     *
+     */
+    public function checkToken(){
+        return view('token');
+    }
+    /**
      * Get list friends
      * @return array|bool
      */
@@ -89,18 +95,6 @@ class FacebookController extends Controller
     public function execute($path)
     {
         return json_decode(exec($path));
-    }
-
-    /**
-     * Decode API Result
-     * Get list data array
-     * @param $result
-     * @return bool
-     */
-    public function render($result)
-    {
-        $args = json_decode($result);
-        return isset($args->data) ? $args->data : false;
     }
 
     /**
