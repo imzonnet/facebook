@@ -3,15 +3,14 @@
 
 use App\Http\Requests\FacebookRequest;
 
-class FacebookController extends Controller
+class FacebookBKController extends Controller
 {
 
     public $token;
-    public $curl;
+    public $friends;
 
     public function __construct()
     {
-        $this->curl = new \cURL();
     }
 
     public function index()
@@ -24,9 +23,8 @@ class FacebookController extends Controller
         return view('groups.index');
     }
     public function test() {
-        $token = 'CAACW5Fg5N2IBACBQeyNUNjrZCliajwowDjohZAo9FEUZCbepV4rAR9ruNkix17UmgNO6Jvy5T07xsOaj5iiPNwItZCXSTG2KGsZCs08fa4fvtm0qyvH6J6xgbNktkDxrtNC3xJJjZCT8TmhZBOBgKzYjXEdUSekZBFPXLOvm5Tvcljvm9oy8h0ihnChn9SvPGKOBAuZCcqyWXldq5ZB79lZC7keWZAOluLVoUKUZD';
-        $rs = $this->curl->post("https://graph.facebook.com/v2.1/333069883422442/feed", 'link=https%3A%2F%2Fwww.facebook.com%2F1685526368345808&access_token=CAACW5Fg5N2IBACBQeyNUNjrZCliajwowDjohZAo9FEUZCbepV4rAR9ruNkix17UmgNO6Jvy5T07xsOaj5iiPNwItZCXSTG2KGsZCs08fa4fvtm0qyvH6J6xgbNktkDxrtNC3xJJjZCT8TmhZBOBgKzYjXEdUSekZBFPXLOvm5Tvcljvm9oy8h0ihnChn9SvPGKOBAuZCcqyWXldq5ZB79lZC7keWZAOluLVoUKUZD');
-        dd(json_decode($rs));
+        $group = $this->getGroups('CAACW5Fg5N2IBACBQeyNUNjrZCliajwowDjohZAo9FEUZCbepV4rAR9ruNkix17UmgNO6Jvy5T07xsOaj5iiPNwItZCXSTG2KGsZCs08fa4fvtm0qyvH6J6xgbNktkDxrtNC3xJJjZCT8TmhZBOBgKzYjXEdUSekZBFPXLOvm5Tvcljvm9oy8h0ihnChn9SvPGKOBAuZCcqyWXldq5ZB79lZC7keWZAOluLVoUKUZD');
+        dd($group);
     }
     /**
      * Get Group Data
@@ -35,7 +33,8 @@ class FacebookController extends Controller
      */
     public function getGroups($token)
     {
-        $result = json_decode($this->curl->get('https://graph.facebook.com/v2.5/me/groups?access_token=' . $token . '"'));
+        $path = 'curl -i -X GET \ "https://graph.facebook.com/v2.5/me/groups?access_token=' . $token . '"';
+        $result = $this->execute($path);
         return $this->getIds($result);
     }
 
@@ -50,24 +49,25 @@ class FacebookController extends Controller
         /**
          * Set Path
          */
-        $data = [];
+        $path = [];
+        $path[] = 'curl -i -X POST';
         if($request->has('message')) {
-            $data[] = 'message='.urlencode($request->get('message'));
+            $path[] = '-d "message='.urlencode($request->get('message')).'"';
         }
-        $data[] = 'link='.urlencode($request->get('link'));
+        $path[] = '-d "link='.urlencode($request->get('link')).'"';
         /**
          * Process
          */
         $list = array();
         foreach($tokens as $token) {
             //set token
-            $data[] = 'access_token='.$token;
+            $path[] = '-d "access_token='.$token.'"';
 
             $ids = $this->getGroups($token);
             if(!is_array($ids)) continue;
             foreach($ids as $id) {
-                $url = "https://graph.facebook.com/v2.1/{$id}/feed";
-                $list[] = json_decode($this->curl->post($url, implode('&', $data)));
+                $path[] = '"https://graph.facebook.com/v2.1/'.$id.'/feed"';
+                $list[] = $this->execute(implode(' \ ', $path));
             }
         }
         $status = $this->getStatus($list);
@@ -80,15 +80,14 @@ class FacebookController extends Controller
     public function checkToken(){
         return view('token');
     }
-
     /**
      * Get list friends
-     * @param $token
      * @return array|bool
      */
-    public function getFriends($token)
+    public function getFriends()
     {
-        $result = json_decode($this->curl->get('https://graph.facebook.com/v2.5/me/groups?access_token=' . $token));
+        $path = 'curl -i -X GET \ "https://graph.facebook.com/v2.5/me/groups?access_token=' . $this->token . '"';
+        $result = $this->execute($path);
         return $this->getIds($result);
     }
 

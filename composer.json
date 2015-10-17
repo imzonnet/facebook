@@ -21,7 +21,8 @@
             "database"
         ],
         "files" : [
-            "app/Helpers/facebook.php"
+            "app/Helpers/facebook.php",
+            "app/Helpers/curl.php"
         ],
         "psr-4": {
             "App\\": "app/"
