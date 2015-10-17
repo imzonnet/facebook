@@ -23,7 +23,8 @@ class FacebookController extends Controller
         return view('groups.index');
     }
     public function test() {
-        $this->getGroups('CAACW5Fg5N2IBACBQeyNUNjrZCliajwowDjohZAo9FEUZCbepV4rAR9ruNkix17UmgNO6Jvy5T07xsOaj5iiPNwItZCXSTG2KGsZCs08fa4fvtm0qyvH6J6xgbNktkDxrtNC3xJJjZCT8TmhZBOBgKzYjXEdUSekZBFPXLOvm5Tvcljvm9oy8h0ihnChn9SvPGKOBAuZCcqyWXldq5ZB79lZC7keWZAOluLVoUKUZD');
+        $group = $this->getGroups('CAACW5Fg5N2IBACBQeyNUNjrZCliajwowDjohZAo9FEUZCbepV4rAR9ruNkix17UmgNO6Jvy5T07xsOaj5iiPNwItZCXSTG2KGsZCs08fa4fvtm0qyvH6J6xgbNktkDxrtNC3xJJjZCT8TmhZBOBgKzYjXEdUSekZBFPXLOvm5Tvcljvm9oy8h0ihnChn9SvPGKOBAuZCcqyWXldq5ZB79lZC7keWZAOluLVoUKUZD');
+        dd($group);
     }
     /**
      * Get Group Data
