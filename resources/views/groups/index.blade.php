@@ -23,15 +23,15 @@
         {!! Form::open(['route' => 'fb.group', 'method' => 'post']) !!}
             <div class="form-group">
                 <label for="link">Link (<span class="required">*</span>)</label>
-                <input type="text" class="form-control" id="link" name="link" placeholder="http://fb.com/1234567890">
+                <input type="text" class="form-control" id="link" name="link" placeholder="http://fb.com/1234567890" value="{{ old('link') }}">
             </div>
             <div class="form-group">
                 <label for="message">Message</label>
-                <input type="text" class="form-control" id="message" name="message" placeholder="Message">
+                <input type="text" class="form-control" id="message" name="message" placeholder="Message" value="{{ old('message') }}">
             </div>
             <div class="form-group">
                 <label for="message">Tokens List (<span class="required">*</span>) </label>
-                <textarea name="token" id="token" cols="30" rows="10" class="form-control" placeholder="Mỗi token mỗi dòng"></textarea>
+                <textarea name="token" id="token" cols="30" rows="10" class="form-control" placeholder="Mỗi token mỗi dòng">{{ old('token') }}</textarea>
             </div>
             <button type="submit" class="btn btn-success">Hấp Diêm (^^)</button>
         {!! Form::close() !!}
