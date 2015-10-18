@@ -64,15 +64,12 @@ class FacebookController extends Controller
             $data[] = 'access_token='.$token;
 
             $ids = $this->getGroups($token);
-            var_dump($ids);
-            /*
             if(is_array($ids)) {
                 foreach($ids as $id) {
                     $url = "https://graph.facebook.com/v2.1/{$id}/feed";
                     $list[] = json_decode($this->curl->post($url, implode('&', $data)));
                 }
             };
-            */
         }
         $status = $this->getStatus($list);
         return view('groups.index', compact('status'));
